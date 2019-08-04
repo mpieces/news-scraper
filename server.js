@@ -54,26 +54,31 @@ app.get("/all", function(req, res) {
 
 // Scrape data from one site and place it into the mongodb db
 app.get("/scrape", function(req, res) {
+    console.log("inside scrape route")
   // Make a request via axios for the news section of `ycombinator`
-  axios.get("https://www.buzzfeednews.com/").then(function(response) {
+  axios.get("https://www.buzzfeednews.com/").then(function(req, response) {
     // Load the html body from axios into cheerio
-    var $ = cheerio.load(response.data);
+    var $ = cheerio.load(req.data);
     // For each element with a "title" class
-    $(".article.newsblock-story-card").each(function(i, element) {
+    $("div.news-feed article").each(function(i, element) {
       // Save the text and href of each link enclosed in the current element
-      var title = $(element).children("h2").text();
+      var title = $(element).children("a").children(".newsblock-story-card__info").children("h2.newsblock-story-card__title").text();
+      console.log("title: " +title)
       var link = $(element).children("a").attr("href");
       var photo = $(element).find("a").find("img").attr("src");
+      var articles = [];
+      var articlesToAdd = {
+          title: title,
+          link: link,
+          photo: photo,
+          saved: false
+      }
+      articles.push(articlesToAdd);
 
       // If this found element had both a title and a link and photo
       if (title && link) {
-        // Insert the data in the scrapedData db
-        db.scrapedData.insert({
-          title: title,
-          link: link,
-          photo: photo
-       
-        },
+        //Insert the data in the scrapedData db
+        db.scrapedData.insert(articles,
         function(err, inserted) {
           if (err) {
             // Log the error if one is encountered during the query
@@ -82,11 +87,17 @@ app.get("/scrape", function(req, res) {
           else {
             // Otherwise, log the inserted data
             console.log(inserted);
+            console.log("response: "+response)
+            response.render("home", {db_headlines: inserted})
           }
         });
-      }
+        // db.scrapedData.insert((articles),function(er,aticlesINfo){
+        //     console.log("articles: " +articlesINfo);
+        //     response.render("home", {db_headlines: articlesINfo});
+        // }
+         }
     });
-  });
+});
 
   // Send a "Scrape Complete" message to the browser
   res.send("Scrape Complete");

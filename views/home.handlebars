@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class ="navbar-brand" href="/" >Name of WEbsite</a>
+    <ul>
+        <li><a href="/scrape" >Scrape the Website</a></li>
+        <li><a href="/saved" >Saved Articles</a></li>
+        <li><a href="/deleted" >deleted</a></li>
+    </ul>
+</nav>
+
+<div class ="container">
+    <h1>Scraped Aticles</h1>
+    <div id ="display-articles">
+        {{#each db_headlines}}
+        {{#unless this.saved}}
+        <div class ="row">
+            <div class="col-10">
+                <h3>{{this.title}}</h3>
+                <h4>{{this.link}}</h4>
+                <h4>{{this.photo}}</h4>
+            </div>
+        </div>
+        {{/unless}}
+        {{/each}}
+    </div>
+</div>

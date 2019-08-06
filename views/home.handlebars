@@ -10,16 +10,17 @@
 <div class ="container">
     <h1>Scraped Aticles</h1>
     <div id ="display-articles">
-        {{#each db_headlines}}
-        {{#unless this.saved}}
+        {{#each article}}
+        {{!-- {{#unless this.saved}} --}}
         <div class ="row">
             <div class="col-10">
                 <h3>{{this.title}}</h3>
+                <a href ='/readArticle/{{this._id}}'>Read Article</a>
                 <h4>{{this.link}}</h4>
                 <h4>{{this.photo}}</h4>
             </div>
         </div>
-        {{/unless}}
+        {{!-- {{/unless}} --}}
         {{/each}}
     </div>
 </div>

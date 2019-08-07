@@ -1,23 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-    <a class ="navbar-brand" href="/" >Name of WEbsite</a>
+    <a class ="navbar-brand" href="/" >Mongo News Scraper</a>
     <ul>
         <li><a href="/scrape" >Scrape the Website</a></li>
         <li><a href="/saved" >Saved Articles</a></li>
-        <li><a href="/deleted" >deleted</a></li>
+        <li><a href="/deleted" >Deleted Articles</a></li>
     </ul>
 </nav>
 
 <div class ="container">
-    <h1>Scraped Aticles</h1>
+    <h1>Scraped Articles</h1>
     <div id ="display-articles">
         {{#each article}}
         {{!-- {{#unless this.saved}} --}}
         <div class ="row">
             <div class="col-10">
+
                 <h3>{{this.title}}</h3>
                 <a href ='/readArticle/{{this._id}}'>Read Article</a>
-                <h4>{{this.link}}</h4>
-                <h4>{{this.photo}}</h4>
+                <h4><a href="{{this.link}}"</a></h4>
+                <img src="{{this.photo}}"/>
+                
             </div>
         </div>
         {{!-- {{/unless}} --}}

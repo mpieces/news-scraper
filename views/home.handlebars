@@ -1,42 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class ="navbar-brand" href="/" >Mongo News Scraper</a>
-    <a class="btn btn-primary" href="/scrape" role="button">Scrape Buzzfeed News</a>
-  
-        {{!-- <li><a href="/scrape" >Scrape Buzzfeed News</a></li> --}}
-        {{!-- <li><a href="/saved" >Saved Articles</a></li>
+    <a class="navbar-brand" href="/">Mongo News Scraper</a>
+    <a class="btn btn-primary" href="/scrape" role="button">Scrape Latest Articles</a>
+
+    {{!-- <li><a href="/scrape" >Scrape Buzzfeed News</a></li> --}}
+    {{!-- <li><a href="/saved" >Saved Articles</a></li>
         <li><a href="/deleted" >Deleted Articles</a></li> --}}
     {{!-- </ul> --}}
 </nav>
 
 <div class="jumbotron text-center">
-  <div class="overlay">
-  </div>
-  <div class="background-image">
-  </div>
-  <div class="caption">
-    <h1>Mongo Scraper</h1>
-    <p>Buzzfeed News Edition</p>
-  </div>
+    <div class="overlay">
+    </div>
+    <div class="background-image">
+        <img src="newspaper.jpg"/>
+    </div>
+    <div class="caption">
+        <h1>Mongo Scraper</h1>
+        <h5>Buzzfeed News Edition</h5>
+    </div>
 </div>
 
-
-
-<div class ="container">
-    <br>
-    <h1>Scraped Articles</h1>
-    <br>
-    <div id ="display-articles">
-        {{#each article}}   
-        <div class ="row">
-            <div class="col-10">
-
-                <h3>{{this.title}}</h3>
-                <a href ='/readArticle/{{this._id}}'>Read Article</a>
-                <h4><a href="{{this.link}}"</a></h4>
-                <img src="{{this.photo}}"/>
-                
+<div class="container-fluid">
+    <div id="display-articles">
+        <div class="row">
+            {{#each article}}
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{this.photo}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.title}}</h5>
+                        <p class="card-text"><a href="{{this.link}}" </a> </p> <a href="{{this.link}}"
+                                class="btn btn-primary">Read Article</a>
+                    </div>
+                </div>
             </div>
-        </div> 
-        {{/each}}
+            {{/each}}
+        </div>
     </div>
 </div>
